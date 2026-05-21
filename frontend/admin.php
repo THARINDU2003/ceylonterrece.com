@@ -191,10 +191,10 @@
             <a href="#" class="nav-item" data-view="manageView">
                 <i class="fas fa-edit"></i> Website Edit
             </a>
-            <a href="/super-admin.html" class="nav-item text-purple-600">
+            <a href="/super-admin.php" class="nav-item text-purple-600">
                 <i class="fas fa-user-shield"></i> SUPER ADMIN
             </a>
-            <a href="/properties.html" class="nav-item">
+            <a href="/properties.php" class="nav-item">
                 <i class="fas fa-building"></i> Properties
             </a>
             <a href="#" class="nav-item">
@@ -203,7 +203,7 @@
             <a href="#" class="nav-item">
                 <i class="fas fa-wallet"></i> Income
             </a>
-            <a href="/pricing.html" class="nav-item">
+            <a href="/pricing.php" class="nav-item">
                 <i class="fas fa-tags"></i> Ad Plans
             </a>
             <a href="#" class="nav-item">
@@ -303,7 +303,7 @@
             <div class="chart-container text-gray-800">
                 <div class="flex justify-between items-center mb-6">
                     <h3 class="font-bold">New List</h3>
-                    <a href="/properties.html" class="text-sm text-blue-600 font-semibold">View All</a>
+                    <a href="/properties.php" class="text-sm text-blue-600 font-semibold">View All</a>
                 </div>
                 <div id="recentList">
                     <!-- Loaded dynamically -->

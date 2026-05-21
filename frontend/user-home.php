@@ -323,10 +323,10 @@
         <div class="top-navbar">
             <div class="nav-links">
                 <a href="#" class="nav-link active">HOME</a>
-                <a href="/properties.html" class="nav-link">Property</a>
-                <a href="/construction.html" class="nav-link">Construction</a>
-                <a href="/learn.html" class="nav-link">learn</a>
-                <a href="/jobs.html" class="nav-link">JOBS</a>
+                <a href="/properties.php" class="nav-link">Property</a>
+                <a href="/construction.php" class="nav-link">Construction</a>
+                <a href="/learn.php" class="nav-link">learn</a>
+                <a href="/jobs.php" class="nav-link">JOBS</a>
             </div>
             <div class="top-icons">
                 <i class="fas fa-user-circle"></i>
@@ -353,7 +353,7 @@
             <div class="filter-input-wrapper">
                 <input type="text" placeholder="Location">
             </div>
-            <a href="/dashboard.html" class="post-add-btn">post Add</a>
+            <a href="/dashboard.php" class="post-add-btn">post Add</a>
         </div>
 
         <!-- Dashboard Content -->

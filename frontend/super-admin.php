@@ -51,7 +51,7 @@
                         <i class="fas fa-user-tie"></i> Agents
                     </button>
                     <div class="pt-8 border-t border-gray-100">
-                        <a href="/index.html" class="w-full flex items-center gap-3 px-4 py-3 text-gray-400 font-bold hover:text-blue-600 transition">
+                        <a href="/index.php" class="w-full flex items-center gap-3 px-4 py-3 text-gray-400 font-bold hover:text-blue-600 transition">
                             <i class="fas fa-arrow-left"></i> View Site
                         </a>
                         <button onclick="window.auth.logout()" class="w-full flex items-center gap-3 px-4 py-3 text-red-400 font-bold hover:text-red-600 transition">

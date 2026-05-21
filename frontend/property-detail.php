@@ -30,19 +30,19 @@
 
                 <!-- Desktop Menu -->
                 <div class="hidden lg:flex items-center space-x-6">
-                    <a href="/index.html" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 font-medium">Home</a>
-                    <a href="/properties.html" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 font-medium">Properties</a>
-                    <a href="/construction.html" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 font-medium">Construction</a>
-                    <a href="/pricing.html" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 font-medium">Ad Plans</a>
+                    <a href="/index.php" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 font-medium">Home</a>
+                    <a href="/properties.php" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 font-medium">Properties</a>
+                    <a href="/construction.php" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 font-medium">Construction</a>
+                    <a href="/pricing.php" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 font-medium">Ad Plans</a>
                     
                     <!-- Auth Section -->
                     <div id="navGuestLinks" class="flex items-center space-x-4 border-l pl-4 border-gray-200">
-                        <a href="/login.html" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 font-medium">Login</a>
-                        <a href="/signup.html" class="bg-blue-50 text-blue-600 px-4 py-2 rounded-lg hover:bg-blue-100 font-bold transition">Sign Up</a>
+                        <a href="/login.php" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 font-medium">Login</a>
+                        <a href="/signup.php" class="bg-blue-50 text-blue-600 px-4 py-2 rounded-lg hover:bg-blue-100 font-bold transition">Sign Up</a>
                     </div>
                     
                     <div id="navUserLinks" class="hidden flex items-center space-x-4 border-l pl-4 border-gray-200">
-                        <a href="/dashboard.html" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 font-medium flex items-center gap-2">
+                        <a href="/dashboard.php" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 font-medium flex items-center gap-2">
                             <i class="fas fa-user-circle text-xl"></i>
                             <span id="navUserName">Dashboard</span>
                         </a>
@@ -78,18 +78,18 @@
             <!-- Mobile Menu Panel -->
             <div id="mobileMenu" class="hidden lg:hidden pb-6 border-t border-gray-100 dark:border-gray-800 transition-all duration-300">
                 <div class="flex flex-col space-y-4 mt-4">
-                    <a href="/index.html" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 font-bold px-2 py-2">Home</a>
-                    <a href="/properties.html" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 font-bold px-2 py-2">Properties</a>
-                    <a href="/construction.html" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 font-bold px-2 py-2">Construction</a>
-                    <a href="/pricing.html" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 font-bold px-2 py-2">Ad Plans</a>
+                    <a href="/index.php" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 font-bold px-2 py-2">Home</a>
+                    <a href="/properties.php" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 font-bold px-2 py-2">Properties</a>
+                    <a href="/construction.php" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 font-bold px-2 py-2">Construction</a>
+                    <a href="/pricing.php" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 font-bold px-2 py-2">Ad Plans</a>
                     
                     <div id="mobileNavGuestLinks" class="flex flex-col space-y-4 px-2 pt-4 border-t border-gray-100 dark:border-gray-800">
-                        <a href="/login.html" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 font-bold">Login</a>
-                        <a href="/signup.html" class="bg-blue-600 text-white px-4 py-3 rounded-xl font-bold text-center shadow-lg transition">Sign Up</a>
+                        <a href="/login.php" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 font-bold">Login</a>
+                        <a href="/signup.php" class="bg-blue-600 text-white px-4 py-3 rounded-xl font-bold text-center shadow-lg transition">Sign Up</a>
                     </div>
 
                     <div id="mobileNavUserLinks" class="hidden flex flex-col space-y-4 px-2 pt-4 border-t border-gray-100 dark:border-gray-800">
-                        <a href="/dashboard.html" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 font-bold flex items-center gap-2">
+                        <a href="/dashboard.php" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 font-bold flex items-center gap-2">
                             <i class="fas fa-user-circle text-xl"></i>
                             <span id="mobileNavUserName">Dashboard</span>
                         </a>

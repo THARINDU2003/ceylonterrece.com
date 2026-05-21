@@ -117,8 +117,8 @@
                 <h1>Submit Your Property</h1>
                 <p>Fill in the details below to list your property on CeylonTerrece.com</p>
                 <div class="nav-links flex items-center justify-center gap-4">
-                    <a href="/index.html">Back to Home</a>
-                    <a href="/pricing.html">View Ad Plans</a>
+                    <a href="/index.php">Back to Home</a>
+                    <a href="/pricing.php">View Ad Plans</a>
                     
                     <!-- Language Selector -->
                     <select id="languageSelect" class="bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 font-bold border-2 border-gray-200 dark:border-gray-700 text-sm rounded-xl focus:ring-blue-500 focus:border-blue-500 block py-1.5 px-3 ml-4 cursor-pointer outline-none transition shadow-sm hover:border-blue-400">

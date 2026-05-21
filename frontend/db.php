@@ -2,9 +2,9 @@
 // db.php - Database connection using PDO
 
 $host = 'localhost';
-$dbname = 'ceylonlands_db';
-$username = 'root'; // Update this with your live database username
-$password = ''; // Update this with your live database password
+$dbname = 'ceylonte_Admin';
+$username = 'ceylonte_CAdmin'; 
+$password = ''; // You will need to securely set your password in cPanel
 
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);
