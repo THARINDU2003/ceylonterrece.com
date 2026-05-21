@@ -1,0 +1,345 @@
+<?php
+session_start();
+require_once 'db.php';
+
+$message = '';
+$messageType = '';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $email = $_POST['email'] ?? '';
+    $password = $_POST['password'] ?? '';
+
+    if (empty($email) || empty($password)) {
+        $message = "Please enter both email and password.";
+        $messageType = "error";
+    } else {
+        $stmt = $pdo->prepare("SELECT id, name, password, role FROM users WHERE email = ?");
+        $stmt->execute([$email]);
+        
+        if ($stmt->rowCount() > 0) {
+            $user = $stmt->fetch();
+            if (password_verify($password, $user['password'])) {
+                // Login successful
+                $_SESSION['user_id'] = $user['id'];
+                $_SESSION['user_name'] = $user['name'];
+                $_SESSION['user_role'] = $user['role'];
+                
+                header("Location: user-home.php");
+                exit;
+            } else {
+                $message = "Invalid email or password.";
+                $messageType = "error";
+            }
+        } else {
+            $message = "Invalid email or password.";
+            $messageType = "error";
+        }
+    }
+}
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Sign In - CeylonTerrace</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: #F4F7F5;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Leaf background pattern */
+        .bg-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml;utf8,<svg width="600" height="600" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path fill="%23dcedc8" d="M30 10 C40 25, 60 30, 80 50 C60 70, 40 75, 30 90 C20 75, 0 70, -20 50 C0 30, 20 25, 30 10 Z" opacity="0.3" transform="rotate(45 50 50)"/><path fill="%23c5e1a5" d="M70 20 C80 35, 100 40, 120 60 C100 80, 80 85, 70 100 C60 85, 40 80, 20 60 C40 40, 60 35, 70 20 Z" opacity="0.2" transform="rotate(-30 50 50)"/></svg>');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.9;
+            z-index: 0;
+        }
+
+        .login-container {
+            width: 100%;
+            max-width: 400px;
+            padding: 40px 24px;
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        /* Logo Area */
+        .logo-area {
+            text-align: center;
+            margin-bottom: 24px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .logo-img {
+            width: 130px;
+            height: auto;
+            margin-bottom: 8px;
+        }
+        
+        .logo-text {
+            font-size: 26px;
+            font-weight: 800;
+            color: #1E5631;
+            letter-spacing: -0.5px;
+            margin: 0;
+        }
+        
+        .logo-text span {
+            color: #555;
+            font-weight: 500;
+            font-size: 20px;
+        }
+
+        .logo-subtitle {
+            font-size: 13px;
+            color: #555;
+            font-weight: 600;
+            margin-top: -2px;
+        }
+
+        .welcome-text {
+            font-size: 13px;
+            color: #333;
+            font-weight: 500;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        /* Form Fields */
+        form {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .input-group {
+            position: relative;
+            width: 100%;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 16px 16px 16px 50px;
+            border-radius: 12px;
+            border: 1.5px solid #a3c2af;
+            background: rgba(255, 255, 255, 0.9);
+            font-size: 15px;
+            color: #333;
+            outline: none;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+        }
+
+        .input-group input:focus {
+            border-color: #1E5631;
+            background: #ffffff;
+            box-shadow: 0 4px 15px rgba(30, 86, 49, 0.1);
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .input-icon svg {
+            width: 22px;
+            height: 22px;
+            fill: #1E5631;
+        }
+
+        .input-placeholder {
+            position: absolute;
+            left: 50px;
+            top: 50%;
+            transform: translateY(-50%);
+            pointer-events: none;
+            transition: all 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            line-height: 1.2;
+        }
+
+        .input-placeholder .main {
+            font-size: 14px;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .input-placeholder .sub {
+            font-size: 11px;
+            color: #666;
+        }
+
+        .input-group input:focus ~ .input-placeholder,
+        .input-group input:not(:placeholder-shown) ~ .input-placeholder {
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-50%) translateX(-10px);
+        }
+
+        /* Button */
+        .submit-btn {
+            width: 100%;
+            padding: 16px;
+            border-radius: 12px;
+            border: none;
+            background: linear-gradient(180deg, #1E5631 0%, #0d381c 100%);
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(30, 86, 49, 0.35);
+            margin-top: 10px;
+            transition: transform 0.1s, box-shadow 0.1s;
+        }
+
+        .submit-btn:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 8px rgba(30, 86, 49, 0.4);
+        }
+
+        /* Links */
+        .forgot-password {
+            text-align: center;
+            margin-top: 24px;
+        }
+
+        .forgot-password a {
+            color: #333;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .signup-link {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 13px;
+            color: #333;
+        }
+
+        .signup-link a {
+            color: #1E5631;
+            text-decoration: none;
+            font-weight: 700;
+        }
+        
+        .message {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            font-size: 14px;
+            text-align: center;
+        }
+        .message.error {
+            background-color: #fee2e2;
+            color: #b91c1c;
+            border: 1px solid #f87171;
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-pattern"></div>
+
+    <div class="login-container">
+        <!-- Logo -->
+        <div class="logo-area">
+            <img src="/images/logo.png" alt="CeylonTerrace Logo" class="logo-img" onerror="this.src='https://cdn-icons-png.flaticon.com/512/8207/8207185.png'; this.style.filter='hue-rotate(80deg) brightness(0.6)'; this.style.width='80px'; this.style.marginBottom='16px';">
+            <h1 class="logo-text">CeylonTerrace<span>.com</span></h1>
+            <div class="logo-subtitle">Premier Property Experts</div>
+        </div>
+
+        <div class="welcome-text">
+            Welcome to CeylonTerrace - Sign In to Begin
+        </div>
+
+        <?php if ($message): ?>
+            <div class="message <?php echo $messageType; ?>">
+                <?php echo htmlspecialchars($message); ?>
+            </div>
+        <?php endif; ?>
+
+        <form method="POST" action="login.php">
+            <div class="input-group">
+                <div class="input-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M19.5,8C18.12,8 17,9.12 17,10.5V13H16V10.5C16,8.57 17.57,7 19.5,7C20.88,7 22,8.12 22,9.5V11H21V9.5C21,8.67 20.33,8 19.5,8M15,10V14H13V15.5C13,16.88 11.88,18 10.5,18C9.12,18 8,16.88 8,15.5V14H6V10H15M10.5,16.5C11.05,16.5 11.5,16.05 11.5,15.5V14H9.5V15.5C9.5,16.05 9.95,16.5 10.5,16.5M10,12H11V11H10V12M12,12H13V11H12V12M3,10H5V14H3V10Z" />
+                        <path d="M21 11.5v4c0 1.93-1.57 3.5-3.5 3.5h-1c-1.93 0-3.5-1.57-3.5-3.5v-.5h-2v.5c0 1.93-1.57 3.5-3.5 3.5h-1C4.57 19 3 17.43 3 15.5v-4C3 8.46 5.46 6 8.5 6h4C15.54 6 18 8.46 18 11.5v1h1v-1z" opacity="0.3"/>
+                        <path d="M13,6C13,6 12,3 9,3C6,3 4.5,5.5 4.5,5.5C4.5,5.5 3,5.5 3,8L3,15.5C3,17.43 4.57,19 6.5,19H7.5C9.43,19 11,17.43 11,15.5V15H13V15.5C13,17.43 14.57,19 16.5,19H17.5C19.43,19 21,17.43 21,15.5V11C21,8 19,6 19,6L13,6Z" />
+                    </svg>
+                </div>
+                <input type="email" name="email" required placeholder=" ">
+                <div class="input-placeholder">
+                    <span class="main">Email / Username</span>
+                    <span class="sub">(Email address)</span>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <div class="input-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M19.5,8C18.12,8 17,9.12 17,10.5V13H16V10.5C16,8.57 17.57,7 19.5,7C20.88,7 22,8.12 22,9.5V11H21V9.5C21,8.67 20.33,8 19.5,8M15,10V14H13V15.5C13,16.88 11.88,18 10.5,18C9.12,18 8,16.88 8,15.5V14H6V10H15M10.5,16.5C11.05,16.5 11.5,16.05 11.5,15.5V14H9.5V15.5C9.5,16.05 9.95,16.5 10.5,16.5M10,12H11V11H10V12M12,12H13V11H12V12M3,10H5V14H3V10Z" />
+                        <path d="M21 11.5v4c0 1.93-1.57 3.5-3.5 3.5h-1c-1.93 0-3.5-1.57-3.5-3.5v-.5h-2v.5c0 1.93-1.57 3.5-3.5 3.5h-1C4.57 19 3 17.43 3 15.5v-4C3 8.46 5.46 6 8.5 6h4C15.54 6 18 8.46 18 11.5v1h1v-1z" opacity="0.3"/>
+                        <path d="M13,6C13,6 12,3 9,3C6,3 4.5,5.5 4.5,5.5C4.5,5.5 3,5.5 3,8L3,15.5C3,17.43 4.57,19 6.5,19H7.5C9.43,19 11,17.43 11,15.5V15H13V15.5C13,17.43 14.57,19 16.5,19H17.5C19.43,19 21,17.43 21,15.5V11C21,8 19,6 19,6L13,6Z" />
+                    </svg>
+                </div>
+                <input type="password" name="password" required placeholder=" ">
+                <div class="input-placeholder">
+                    <span class="main">Password</span>
+                    <span class="sub">(********)</span>
+                </div>
+            </div>
+
+            <button type="submit" class="submit-btn">Sign In</button>
+        </form>
+
+        <div class="forgot-password">
+            <a href="#">Forgot Password?</a>
+        </div>
+
+        <div class="signup-link">
+            Don't have an account? <a href="signup.php">Sign Up</a>
+        </div>
+    </div>
+</body>
+</html>
